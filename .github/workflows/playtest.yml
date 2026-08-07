@@ -1,0 +1,36 @@
+name: Playtesting Report Generator
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - feature/packaging
+
+permissions:
+  contents: write
+
+jobs:
+  run-playtest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install .
+      - name: Run simulation (500 runs)
+        run: |
+          python3 dragon_fight.py simulate 500 | tee docs/playtesting_report.md
+      - name: Commit report
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/playtesting_report.md
+          git commit -m "Add playtesting report (500 runs)" || echo "No changes to commit"
+          git push
