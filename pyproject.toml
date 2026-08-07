@@ -1,0 +1,12 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sentinel-dragon-fight"
+version = "0.1.0"
+description = "Dragon Fight CLI - sentinel project"
+authors = [ { name = "Rohit30Confluence" } ]
+license = { text = "MIT" }
+
+[tool.setuptools]
