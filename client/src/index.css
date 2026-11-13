@@ -1,0 +1,70 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(156, 163, 175, 0.4) transparent;
+  }
+  
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: rgba(156, 163, 175, 0.35);
+    border-radius: 9999px;
+  }
+  
+  .dark ::-webkit-scrollbar-thumb {
+    background: rgba(75, 85, 99, 0.45);
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(107, 114, 128, 0.6);
+  }
+}
+
+/* Custom markdown formatting */
+.prose-sentinel pre {
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
+  padding: 0;
+  background: transparent;
+}
+
+.prose-sentinel code:not(pre code) {
+  padding: 0.15rem 0.35rem;
+  border-radius: 0.25rem;
+  font-size: 0.875em;
+  font-family: 'JetBrains Mono', monospace;
+  background-color: rgba(100, 116, 139, 0.15);
+  color: #0891b2;
+}
+
+.dark .prose-sentinel code:not(pre code) {
+  background-color: rgba(30, 41, 59, 0.8);
+  color: #38bdf8;
+}
+
+/* Pulse animation for streaming cursor */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.cursor-blink {
+  display: inline-block;
+  width: 7px;
+  height: 15px;
+  margin-left: 3px;
+  vertical-align: middle;
+  background-color: #06b6d4;
+  animation: blink 1s infinite;
+}
