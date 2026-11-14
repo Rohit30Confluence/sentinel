@@ -5,7 +5,7 @@
 @layer base {
   * {
     scrollbar-width: thin;
-    scrollbar-color: rgba(92, 90, 85, 0.3) transparent;
+    scrollbar-color: rgba(92, 90, 85, 0.25) transparent;
   }
   
   ::-webkit-scrollbar {
@@ -18,16 +18,12 @@
   }
   
   ::-webkit-scrollbar-thumb {
-    background: rgba(92, 90, 85, 0.25);
+    background: #E4E0D8;
     border-radius: 2px;
   }
   
-  .dark ::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.2);
-  }
-  
   ::-webkit-scrollbar-thumb:hover {
-    background: rgba(164, 89, 255, 0.6);
+    background: #A459FF;
   }
 }
 
@@ -40,32 +36,27 @@
   letter-spacing: -0.02em;
   font-weight: 600;
   color: #141413;
-  margin-top: 1.25rem;
-  margin-bottom: 0.5rem;
-}
-
-.dark .prose-thatjoint h1,
-.dark .prose-thatjoint h2,
-.dark .prose-thatjoint h3 {
-  color: #F7F5F0;
+  margin-top: 1.15rem;
+  margin-bottom: 0.4rem;
 }
 
 .prose-thatjoint p {
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
+  margin-top: 0.45rem;
+  margin-bottom: 0.45rem;
   line-height: 1.65;
+  color: #141413;
 }
 
 .prose-thatjoint ul,
 .prose-thatjoint ol {
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
+  margin-top: 0.45rem;
+  margin-bottom: 0.45rem;
   padding-left: 1.25rem;
 }
 
 .prose-thatjoint li {
-  margin-top: 0.25rem;
-  margin-bottom: 0.25rem;
+  margin-top: 0.2rem;
+  margin-bottom: 0.2rem;
   line-height: 1.6;
 }
 
@@ -80,46 +71,34 @@
   border-radius: 2px;
   font-size: 0.825em;
   font-family: 'JetBrains Mono', monospace;
-  background-color: rgba(92, 90, 85, 0.1);
+  background-color: #EFECE6;
   color: #141413;
-  border: 1px solid rgba(92, 90, 85, 0.15);
-}
-
-.dark .prose-thatjoint code:not(pre code) {
-  background-color: rgba(255, 255, 255, 0.08);
-  color: #F7F5F0;
-  border-color: rgba(255, 255, 255, 0.12);
+  border: 1px solid #E4E0D8;
 }
 
 .prose-thatjoint table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+  margin-top: 0.85rem;
+  margin-bottom: 0.85rem;
   font-size: 0.85rem;
 }
 
 .prose-thatjoint th {
   border-bottom: 2px solid #E4E0D8;
-  padding: 0.5rem 0.75rem;
+  padding: 0.45rem 0.65rem;
   text-align: left;
   font-family: 'Barlow Condensed', sans-serif;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   font-size: 0.85rem;
-}
-
-.dark .prose-thatjoint th {
-  border-bottom-color: rgba(255, 255, 255, 0.15);
+  color: #141413;
 }
 
 .prose-thatjoint td {
   border-bottom: 1px solid #E4E0D8;
-  padding: 0.5rem 0.75rem;
-}
-
-.dark .prose-thatjoint td {
-  border-bottom-color: rgba(255, 255, 255, 0.08);
+  padding: 0.45rem 0.65rem;
+  color: #141413;
 }
 
 /* Pulsing cursor for live streaming */
@@ -143,19 +122,13 @@
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
-  padding: 0.2rem 0.5rem;
+  padding: 0.18rem 0.5rem;
   border-radius: 2px;
   font-family: 'JetBrains Mono', monospace;
-  font-size: 0.7rem;
-  background: rgba(164, 89, 255, 0.08);
-  color: #7a3ee6;
-  border: 1px solid rgba(164, 89, 255, 0.25);
-  margin-top: 0.5rem;
-  margin-right: 0.4rem;
-}
-
-.dark .citation-pill {
-  background: rgba(164, 89, 255, 0.15);
-  color: #c49aff;
-  border-color: rgba(164, 89, 255, 0.3);
+  font-size: 0.72rem;
+  background: #F1E8FF;
+  color: #7A3EE6;
+  border: 1px solid rgba(164, 89, 255, 0.35);
+  margin-top: 0.4rem;
+  margin-right: 0.35rem;
 }

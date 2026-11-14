@@ -18,7 +18,7 @@ export const App: React.FC = () => {
   const [knowledgeOpen, setKnowledgeOpen] = useState(false);
   const [knowledgeStatus, setKnowledgeStatus] = useState<KnowledgeStatus | null>(null);
 
-  // Fetch knowledge base status & server history on mount
+  // Fetch knowledge base status on mount
   const fetchKnowledgeStatus = () => {
     fetch('/api/knowledge/status')
       .then((res) => (res.ok ? res.json() : null))
@@ -47,7 +47,7 @@ export const App: React.FC = () => {
     saveStoredConversations(newList);
   };
 
-  // Ensure active conversation exists
+  // Ensure an active conversation always exists
   useEffect(() => {
     if (!activeId) {
       if (conversations.length > 0) {
@@ -128,8 +128,8 @@ export const App: React.FC = () => {
   });
 
   return (
-    <div className="flex h-screen w-screen overflow-hidden bg-[#F7F5F0] dark:bg-[#141413]">
-      {/* Sidebar */}
+    <div className="flex h-screen w-screen overflow-hidden bg-[#F7F5F0] text-[#141413]">
+      {/* Sidebar: Warm architectural panel #F2EFE9 with 1px solid #E4E0D8 border */}
       <Sidebar
         isOpen={sidebarOpen}
         onClose={() => setSidebarOpen(false)}
@@ -164,7 +164,7 @@ export const App: React.FC = () => {
         />
       </div>
 
-      {/* Active Knowledge Inspector Modal */}
+      {/* Active Knowledge Scope Modal */}
       <KnowledgeModal
         isOpen={knowledgeOpen}
         onClose={() => setKnowledgeOpen(false)}

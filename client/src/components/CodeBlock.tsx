@@ -22,7 +22,7 @@ export const CodeBlock: React.FC<CodeBlockProps> = ({ language, value }) => {
   const cleanLang = (language || 'text').replace('language-', '').toLowerCase();
 
   return (
-    <div className="relative my-3 rounded-sm overflow-hidden border border-[#E4E0D8] dark:border-white/10 bg-[#141413] shadow-sm text-gray-100 font-mono">
+    <div className="relative my-3 rounded-sm overflow-hidden border border-[#E4E0D8] bg-[#141413] text-[#FFFFFF] font-mono shadow-xs">
       {/* Code Header Bar */}
       <div className="flex items-center justify-between px-3.5 py-1.5 bg-[#1E1E1D] border-b border-white/10 text-xs">
         <div className="flex items-center gap-1.5 text-gray-300">
@@ -39,8 +39,8 @@ export const CodeBlock: React.FC<CodeBlockProps> = ({ language, value }) => {
         >
           {copied ? (
             <>
-              <Check className="w-3 h-3 text-emerald-400" />
-              <span className="text-[10px] text-emerald-400 font-sans">Copied!</span>
+              <Check className="w-3 h-3 text-[#2D8A78]" />
+              <span className="text-[10px] text-[#2D8A78] font-sans">Copied!</span>
             </>
           ) : (
             <>
