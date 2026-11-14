@@ -1,0 +1,507 @@
+{
+  "dataset_name": "ThatJoint 3-Year Co-Living Portfolio (Pune Tech Corridor)",
+  "summary": {
+    "total_residents": 40,
+    "date_range": "2023-11 to 2026-10",
+    "total_months": 36,
+    "total_records": 1440,
+    "total_revenue_inr": 26902673,
+    "total_base_rent_inr": 17793000,
+    "total_food_plan_inr": 5244480,
+    "total_late_night_spend_inr": 3865193,
+    "total_late_night_orders": 10471
+  },
+  "nationalities": {
+    "German": 1,
+    "Indian": 37,
+    "Japanese": 1,
+    "Russian": 1
+  },
+  "room_types": [
+    {
+      "room_type": "Double (Shared)",
+      "residents": 10,
+      "rooms": 5
+    },
+    {
+      "room_type": "Double (Single Occupancy)",
+      "residents": 20,
+      "rooms": 20
+    },
+    {
+      "room_type": "Single Room",
+      "residents": 10,
+      "rooms": 10
+    }
+  ],
+  "employers": [
+    {
+      "employer": "Barclays Kharadi",
+      "count": 5
+    },
+    {
+      "employer": "Infosys Phase 2",
+      "count": 5
+    },
+    {
+      "employer": "Persistent Systems",
+      "count": 5
+    },
+    {
+      "employer": "TCS Hinjawadi",
+      "count": 5
+    },
+    {
+      "employer": "ZS Associates",
+      "count": 5
+    },
+    {
+      "employer": "Bajaj Finserv Viman Nagar",
+      "count": 4
+    },
+    {
+      "employer": "Cognizant",
+      "count": 4
+    },
+    {
+      "employer": "Wipro Kharadi",
+      "count": 4
+    },
+    {
+      "employer": "Infosys BPM Pune",
+      "count": 1
+    },
+    {
+      "employer": "KPIT Technologies",
+      "count": 1
+    },
+    {
+      "employer": "Siemens Technology India",
+      "count": 1
+    }
+  ],
+  "payment_systems": [
+    {
+      "payment_system": "Corporate Direct Payroll Settlement",
+      "gateway": "ZOHO_BOOKS_B2B_API",
+      "count": 8
+    },
+    {
+      "payment_system": "Credit Card Recurring (Visa/MC)",
+      "gateway": "STRIPE_IN_BILLING_v1",
+      "count": 8
+    },
+    {
+      "payment_system": "IMPS / NEFT Wallet Top-Up",
+      "gateway": "PAYU_VIRTUAL_ACCT_v2",
+      "count": 8
+    },
+    {
+      "payment_system": "NACH / e-NACH Bank Auto-Debit",
+      "gateway": "CASHFREE_ENACH_v3",
+      "count": 8
+    },
+    {
+      "payment_system": "UPI AutoPay (GPay / PhonePe)",
+      "gateway": "RAZORPAY_SUB_API_v2",
+      "count": 8
+    }
+  ],
+  "yearly_revenue": [
+    {
+      "year": "2023",
+      "total_revenue_inr": 1463223,
+      "base_rent_inr": 950000,
+      "food_plan_inr": 280000,
+      "late_night_spend_inr": 233223,
+      "late_night_orders": 640
+    },
+    {
+      "year": "2024",
+      "total_revenue_inr": 8664712,
+      "base_rent_inr": 5738000,
+      "food_plan_inr": 1691200,
+      "late_night_spend_inr": 1235512,
+      "late_night_orders": 3394
+    },
+    {
+      "year": "2025",
+      "total_revenue_inr": 9005458,
+      "base_rent_inr": 5967500,
+      "food_plan_inr": 1758880,
+      "late_night_spend_inr": 1279078,
+      "late_night_orders": 3418
+    },
+    {
+      "year": "2026",
+      "total_revenue_inr": 7769280,
+      "base_rent_inr": 5137500,
+      "food_plan_inr": 1514400,
+      "late_night_spend_inr": 1117380,
+      "late_night_orders": 3019
+    }
+  ],
+  "monthly_trends": [
+    {
+      "month": "2023-11",
+      "total_revenue": 732203,
+      "late_night_spend": 117203,
+      "orders": 325
+    },
+    {
+      "month": "2023-12",
+      "total_revenue": 731020,
+      "late_night_spend": 116020,
+      "orders": 315
+    },
+    {
+      "month": "2024-01",
+      "total_revenue": 719773,
+      "late_night_spend": 104773,
+      "orders": 286
+    },
+    {
+      "month": "2024-02",
+      "total_revenue": 705048,
+      "late_night_spend": 90048,
+      "orders": 245
+    },
+    {
+      "month": "2024-03",
+      "total_revenue": 716488,
+      "late_night_spend": 101488,
+      "orders": 267
+    },
+    {
+      "month": "2024-04",
+      "total_revenue": 701842,
+      "late_night_spend": 86842,
+      "orders": 245
+    },
+    {
+      "month": "2024-05",
+      "total_revenue": 733038,
+      "late_night_spend": 118038,
+      "orders": 332
+    },
+    {
+      "month": "2024-06",
+      "total_revenue": 707994,
+      "late_night_spend": 92994,
+      "orders": 263
+    },
+    {
+      "month": "2024-07",
+      "total_revenue": 728941,
+      "late_night_spend": 113941,
+      "orders": 299
+    },
+    {
+      "month": "2024-08",
+      "total_revenue": 700454,
+      "late_night_spend": 85454,
+      "orders": 232
+    },
+    {
+      "month": "2024-09",
+      "total_revenue": 723396,
+      "late_night_spend": 108396,
+      "orders": 298
+    },
+    {
+      "month": "2024-10",
+      "total_revenue": 718275,
+      "late_night_spend": 103275,
+      "orders": 282
+    },
+    {
+      "month": "2024-11",
+      "total_revenue": 761858,
+      "late_night_spend": 122258,
+      "orders": 350
+    },
+    {
+      "month": "2024-12",
+      "total_revenue": 747605,
+      "late_night_spend": 108005,
+      "orders": 295
+    },
+    {
+      "month": "2025-01",
+      "total_revenue": 751917,
+      "late_night_spend": 112317,
+      "orders": 317
+    },
+    {
+      "month": "2025-02",
+      "total_revenue": 748002,
+      "late_night_spend": 108402,
+      "orders": 292
+    },
+    {
+      "month": "2025-03",
+      "total_revenue": 737837,
+      "late_night_spend": 98237,
+      "orders": 268
+    },
+    {
+      "month": "2025-04",
+      "total_revenue": 727112,
+      "late_night_spend": 87512,
+      "orders": 239
+    },
+    {
+      "month": "2025-05",
+      "total_revenue": 731803,
+      "late_night_spend": 92203,
+      "orders": 252
+    },
+    {
+      "month": "2025-06",
+      "total_revenue": 746964,
+      "late_night_spend": 107364,
+      "orders": 289
+    },
+    {
+      "month": "2025-07",
+      "total_revenue": 740820,
+      "late_night_spend": 101220,
+      "orders": 266
+    },
+    {
+      "month": "2025-08",
+      "total_revenue": 759888,
+      "late_night_spend": 120288,
+      "orders": 302
+    },
+    {
+      "month": "2025-09",
+      "total_revenue": 745598,
+      "late_night_spend": 105998,
+      "orders": 283
+    },
+    {
+      "month": "2025-10",
+      "total_revenue": 743000,
+      "late_night_spend": 103400,
+      "orders": 274
+    },
+    {
+      "month": "2025-11",
+      "total_revenue": 786774,
+      "late_night_spend": 121584,
+      "orders": 322
+    },
+    {
+      "month": "2025-12",
+      "total_revenue": 785743,
+      "late_night_spend": 120553,
+      "orders": 314
+    },
+    {
+      "month": "2026-01",
+      "total_revenue": 788363,
+      "late_night_spend": 123173,
+      "orders": 335
+    },
+    {
+      "month": "2026-02",
+      "total_revenue": 767985,
+      "late_night_spend": 102795,
+      "orders": 288
+    },
+    {
+      "month": "2026-03",
+      "total_revenue": 783799,
+      "late_night_spend": 118609,
+      "orders": 308
+    },
+    {
+      "month": "2026-04",
+      "total_revenue": 786835,
+      "late_night_spend": 121645,
+      "orders": 320
+    },
+    {
+      "month": "2026-05",
+      "total_revenue": 776884,
+      "late_night_spend": 111694,
+      "orders": 290
+    },
+    {
+      "month": "2026-06",
+      "total_revenue": 774123,
+      "late_night_spend": 108933,
+      "orders": 297
+    },
+    {
+      "month": "2026-07",
+      "total_revenue": 775358,
+      "late_night_spend": 110168,
+      "orders": 313
+    },
+    {
+      "month": "2026-08",
+      "total_revenue": 767702,
+      "late_night_spend": 102512,
+      "orders": 281
+    },
+    {
+      "month": "2026-09",
+      "total_revenue": 763238,
+      "late_night_spend": 98048,
+      "orders": 262
+    },
+    {
+      "month": "2026-10",
+      "total_revenue": 784993,
+      "late_night_spend": 119803,
+      "orders": 325
+    }
+  ],
+  "top_spenders": [
+    {
+      "resident_id": "RES-022",
+      "full_name": "Aditi Menon",
+      "room_type": "Double (Single Occupancy)",
+      "employer": "ZS Associates",
+      "total_spent_inr": 767922,
+      "late_night_spent_inr": 112386,
+      "total_orders": 305
+    },
+    {
+      "resident_id": "RES-013",
+      "full_name": "Nikhil Singh",
+      "room_type": "Double (Single Occupancy)",
+      "employer": "Persistent Systems",
+      "total_spent_inr": 764575,
+      "late_night_spent_inr": 109039,
+      "total_orders": 302
+    },
+    {
+      "resident_id": "RES-011",
+      "full_name": "Aditya Shah",
+      "room_type": "Double (Single Occupancy)",
+      "employer": "Bajaj Finserv Viman Nagar",
+      "total_spent_inr": 762537,
+      "late_night_spent_inr": 107001,
+      "total_orders": 292
+    },
+    {
+      "resident_id": "RES-027",
+      "full_name": "Abhishek Verma",
+      "room_type": "Double (Single Occupancy)",
+      "employer": "Bajaj Finserv Viman Nagar",
+      "total_spent_inr": 760183,
+      "late_night_spent_inr": 104647,
+      "total_orders": 278
+    },
+    {
+      "resident_id": "RES-026",
+      "full_name": "Swati Malhotra",
+      "room_type": "Double (Single Occupancy)",
+      "employer": "Wipro Kharadi",
+      "total_spent_inr": 759541,
+      "late_night_spent_inr": 104005,
+      "total_orders": 281
+    },
+    {
+      "resident_id": "RES-024",
+      "full_name": "Nandini Mehta",
+      "room_type": "Double (Single Occupancy)",
+      "employer": "TCS Hinjawadi",
+      "total_spent_inr": 758571,
+      "late_night_spent_inr": 103035,
+      "total_orders": 270
+    },
+    {
+      "resident_id": "RES-021",
+      "full_name": "Harsh Kulkarni",
+      "room_type": "Double (Single Occupancy)",
+      "employer": "Persistent Systems",
+      "total_spent_inr": 754752,
+      "late_night_spent_inr": 99216,
+      "total_orders": 272
+    },
+    {
+      "resident_id": "RES-029",
+      "full_name": "Suresh Iyer",
+      "room_type": "Double (Single Occupancy)",
+      "employer": "Persistent Systems",
+      "total_spent_inr": 754520,
+      "late_night_spent_inr": 98984,
+      "total_orders": 267
+    },
+    {
+      "resident_id": "RES-014",
+      "full_name": "Riya Patel",
+      "room_type": "Double (Single Occupancy)",
+      "employer": "ZS Associates",
+      "total_spent_inr": 754480,
+      "late_night_spent_inr": 98944,
+      "total_orders": 265
+    },
+    {
+      "resident_id": "RES-030",
+      "full_name": "Tanvi Joshi",
+      "room_type": "Double (Single Occupancy)",
+      "employer": "ZS Associates",
+      "total_spent_inr": 754325,
+      "late_night_spent_inr": 98789,
+      "total_orders": 265
+    }
+  ],
+  "foreign_nationals": [
+    {
+      "resident_id": "RES-007",
+      "full_name": "Lukas Weber",
+      "nationality": "German",
+      "room_type": "Double (Shared)",
+      "room_no": "D-Share-4",
+      "employer": "Siemens Technology India",
+      "doc_type": "Employment Visa & FRRO Work Permit",
+      "frro_number": "FRRO-MH-PUN-2023-88412",
+      "work_permit": "EMP-SIE-9041",
+      "payment_system": "Credit Card Recurring (Visa/MC)",
+      "legal_framework": "Foreigners Act 1946 & Registration of Foreigners Rules 1992 (Form C Filing within 24 hrs); Maharashtra Rent Control Act 1999 (Leave & License Agreement); Digital Personal Data Protection (DPDP) Act 2023; FEMA 1999 (NRO Account / Authorised Dealer Payment)"
+    },
+    {
+      "resident_id": "RES-019",
+      "full_name": "Elena Rostova",
+      "nationality": "Russian",
+      "room_type": "Double (Single Occupancy)",
+      "room_no": "D-Single-9",
+      "employer": "Infosys BPM Pune",
+      "doc_type": "Employment Visa & FRRO Work Permit",
+      "frro_number": "FRRO-MH-PUN-2024-11904",
+      "work_permit": "EMP-INF-7723",
+      "payment_system": "IMPS / NEFT Wallet Top-Up",
+      "legal_framework": "Foreigners Act 1946 & Registration of Foreigners Rules 1992 (Form C Filing within 24 hrs); Maharashtra Rent Control Act 1999 (Leave & License Agreement); Digital Personal Data Protection (DPDP) Act 2023; FEMA 1999 (NRO Account / Authorised Dealer Payment)"
+    },
+    {
+      "resident_id": "RES-034",
+      "full_name": "Kenji Takahashi",
+      "nationality": "Japanese",
+      "room_type": "Single Room",
+      "room_no": "Single-4",
+      "employer": "KPIT Technologies",
+      "doc_type": "Employment Visa & FRRO Work Permit",
+      "frro_number": "FRRO-MH-PUN-2023-55319",
+      "work_permit": "EMP-KPI-4410",
+      "payment_system": "IMPS / NEFT Wallet Top-Up",
+      "legal_framework": "Foreigners Act 1946 & Registration of Foreigners Rules 1992 (Form C Filing within 24 hrs); Maharashtra Rent Control Act 1999 (Leave & License Agreement); Digital Personal Data Protection (DPDP) Act 2023; FEMA 1999 (NRO Account / Authorised Dealer Payment)"
+    }
+  ],
+  "legal_regulations": [
+    "Digital Personal Data Protection (DPDP) Act 2023",
+    "Aadhaar (Targeted Delivery of Financial Subsidies) Act 2016 & UIDAI Offline e-KYC Norms",
+    "Income Tax Act 1961 Sec 139A (PAN Verification) & Sec 194I / GST B2B Invoicing",
+    "Maharashtra Rent Control Act 1999 & Police Tenant Verification (Sec 144 CrPC / BNSS)",
+    "Foreigners Act 1946 & Registration of Foreigners Rules 1992 (Form C Filing within 24 hrs)",
+    "Foreign Exchange Management Act (FEMA) 1999 (NRO Account / Authorised Dealer Payment)",
+    "Payment and Settlement Systems Act 2007 (RBI NACH Guidelines)",
+    "RBI Card Tokenization & e-Mandate Recurring Payment Directives",
+    "NPCI Unified Payments Interface (UPI) AutoPay Mandate Rules",
+    "RBI Master Directions on Prepaid Payment Instruments (PPI Wallets)"
+  ]
+}

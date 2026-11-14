@@ -1,4 +1,4 @@
-# 🛡️ Sentinel AI — Intelligence Platform
+# THΛTJOINT. / SENTINEL AI — Rental Operations Intelligence
 
 [![Node Version](https://img.shields.io/badge/Node.js-18%2B-brightgreen.svg)](https://nodejs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.8-blue.svg)](https://www.typescriptlang.org/)
@@ -6,114 +6,69 @@
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.4-38bdf8.svg)](https://tailwindcss.com/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-**Sentinel AI** is a complete, production-ready, full-stack AI chatbot and adaptive intelligence platform. Built with a React + TypeScript + Tailwind CSS frontend and a high-performance Express SSE streaming backend, Sentinel AI delivers plug-and-play multi-provider intelligence (**Gemini**, **OpenAI**, **Anthropic**, and a **Zero-Dependency Local Mock Engine**), context-aware file attachment analysis, persona switching, and persistent conversation management.
+**THΛTJOINT / SENTINEL AI** is a production-grade, full-stack rental operations intelligence terminal. Designed with the exact architectural visual language of [THΛTJOINT](https://rohit30confluence.github.io/ThatJoint) (*"Everything. Connected."*), it operates on a strictly service-provider-governed knowledge base delivering real-time grounded SSE streaming responses across rental platform modules, 5-step operational rhythms, statutory compliance, multi-currency pricing, and payment rails.
 
 ---
 
-## ✨ Features
+## ✨ System Architecture & Visual Identity
 
-- ⚡ **Real-Time Token Streaming**: High-throughput Server-Sent Events (SSE) streaming with instantaneous token rendering, backpressure control, and instant "Stop Generating" cancellation.
-- 🔌 **Plug & Play Multi-Model Architecture**:
-  - **Google Gemini**: Gemini 2.5 Flash, Gemini 1.5 Pro via `@google/genai`.
-  - **OpenAI**: GPT-4o, GPT-4o Mini, o1/o3-mini via `openai`.
-  - **Anthropic**: Claude 3.7 Sonnet, Claude 3.5 Haiku via `@anthropic-ai/sdk`.
-  - **Sentinel Mock Core (Offline)**: Built-in local simulator with realistic streaming, code generation, and persona awareness — zero API keys needed out of the box!
-- 🗂️ **Context-Aware File Attachments**: Attach source code (`.ts`, `.py`, `.js`, `.json`, `.sql`, etc.) or text documents (`.md`, `.txt`, `.csv`) directly via the 📎 button to perform contextual audits and Q&A.
-- 🎭 **Specialized Personas & System Prompts**:
-  - **Sentinel Prime**: Precision general intelligence.
-  - **Code Architect & Refactorer**: System design, DRY principles, and performance profiling.
-  - **Cyber & Threat Analyst**: Security reviews, threat modeling, and OWASP hardening.
-  - **Technical Tutor**: Socratic explanations and first-principles breakdowns.
-  - **Creative & Narrative Strategist**: Storytelling and punchy copy.
-  - **Custom System Prompt**: Define custom personas directly from the UI.
-- 🎨 **Modern Dark & Light Themes**: Cyber-obsidian dark palette (`#0B0F19`) and crisp clean light theme with instant toggling and persistence.
-- 💻 **Syntax-Highlighted Code Blocks**: Automatic language tag detection, line numbering, single-click "Copy Code" feedback, and monospace formatting.
-- 🗄️ **Persistent Chat History**: Fast sidebar management with New Chat, title renaming, search, export to Markdown, and local SQLite/JSON persistence.
-- 📊 **Live Telemetry & Token Counter**: Real-time processed token counter and response latency measurement.
+### 1. Exact Visual Match to THΛTJOINT
+- **Architectural Palette**: Warm alabaster canvas (`#F7F5F0`), elevated white cards (`#FFFFFF`), deep charcoal ink (`#141413`), muted warm slate secondary text (`#5C5A55`), subtle `1px` architectural hairline dividers (`#E4E0D8`), ThatJoint purple accent (`#A459FF`), and `● Live` status pulse (`#2D8A78`).
+- **Typography**: Google Fonts pairing `Barlow Condensed` for bold section headings, `DM Sans` for UI and chat prose, `Newsreader` for editorial italic emphasis (*Everything. Connected.*), and `JetBrains Mono` for numbered operational markers (`01`, `02`, `03`).
+- **Numbered Navigation & Terminal Markers**:
+  - `01 Chat Terminal`: Active grounded conversational interface.
+  - `02 Active Knowledge`: Verified service-provider dataset inspector.
+  - `03 Operations Context`: 5-step lifecycle tracking (Capture → Connect → Coordinate → Control → Prove).
+  - Signature `↗` directional action buttons and sharp architectural card corners (`rounded-sm`).
 
----
+### 2. Strictly Service-Provider Managed Knowledge Base (`server/knowledge/`)
+- Zero user-facing file upload buttons, user knowledge upload drawers, or personal API-key modal clutter.
+- **Pre-loaded Initial Datasets**:
+  1. `01_platform_modules.md`: Single-family, Communities, Short-term, and Portfolio ops.
+  2. `02_operations_rhythm.md`: The 5-step rhythm (Intake/Capture, Context/Connect, Ownership/Coordinate, Permission/Control, Record/Prove), *"Your home. Your server. Your data."*
+  3. `03_rollout_markets.md`: Indian IT corridors (Maharashtra Pune Tech Corridor, Karnataka Bangalore) and GCC expansion (UAE Dubai/Abu Dhabi, Saudi Riyadh).
+  4. `04_pricing_and_plans.md`: Pilot Deploy (AED 914 / $249), Growth Portfolio (AED 2,567 / $699), and Enterprise Sovereign Cloud (AED 5,505 / $1,499) with 20% annual discount.
+  5. `05_compliance_and_kyc.md`: Mandatory 24h Foreign National Form C & FRRO compliance (Lukas Weber, Elena Rostova, Kenji Takahashi), domestic tenant police verification, and DPDP Act 2023.
+  6. `06_payment_rails.md`: 5 payment rails (Cashfree e-NACH, Razorpay UPI AutoPay, Stripe, Zoho Books, PayU Virtual VAN), ₹2.69 Cr 36-month reconciled ledger.
+  7. `07_portfolio_residents_data.json`: 40 tech residents, room inventory, employer distribution.
 
-## 🏗️ Architecture
-
-```
-sentinel/
-├── client/                     # Frontend (React 18 + Vite + TypeScript + Tailwind)
-│   ├── src/
-│   │   ├── components/         # ChatArea, Sidebar, Header, CodeBlock, SettingsModal
-│   │   ├── hooks/              # useChatStream (SSE reader), useTheme
-│   │   ├── types/              # Frontend TypeScript interfaces
-│   │   └── App.tsx             # Root application orchestrator
-│   └── vite.config.ts          # API reverse proxy configuration
-├── server/                     # Backend API (Node.js + Express + TypeScript)
-│   ├── src/
-│   │   ├── adapters/           # Multi-provider adapter layer (Gemini, OpenAI, Anthropic, Mock)
-│   │   ├── controllers/        # Chat streaming, history, and models controllers
-│   │   ├── db/                 # Local persistence layer (data/sentinel_history.json)
-│   │   └── index.ts            # Express server initialization
-│   └── tests/                  # Automated integration tests
-├── .env.example                # Environment variables template
-└── package.json                # Root monorepo workspace configuration
-```
+### 3. Hybrid RAG & Grounded Streaming Engine
+- **Automated Startup Indexer** (`server/src/rag/indexer.ts`): Automatically parses `.md`, `.txt`, `.json`, `.csv` into overlapping ~500-char passages with metadata and keywords, saved to `server/data/knowledge_index.json`.
+- **Hybrid Retriever** (`server/src/rag/retriever.ts`): High-speed BM25 / token-frequency scoring with domain synonym expansion and stop-word filtering. Works 100% offline with zero dependencies, and supports frontier models when `.env` keys are configured.
+- **Architectural Citations**: Responses feature subtle citation tags at the bottom: `[REF: 01_platform_modules.md]`.
+- **Domain Guardrails**: Politely declines queries unrelated to ThatJoint operations.
+- **Hot-Reload Reindex Endpoint**: `POST /api/admin/reindex` (protected by optional `ADMIN_SECRET` in `.env`).
 
 ---
 
-## 🚀 Quickstart Guide
+## 🚀 Quickstart
 
-### 1. Prerequisites
-- **Node.js**: `v18.0.0` or higher
-- **npm**: `v9.0.0` or higher
-
-### 2. Clone & Install Dependencies
 ```bash
 git clone https://github.com/Rohit30Confluence/sentinel.git
 cd sentinel
 
-# Install root, client, and server dependencies
+# 1. Install workspace dependencies
 npm install
-```
 
-### 3. Configure Environment Variables (Optional)
-Copy `.env.example` to `.env`:
-```bash
-cp .env.example .env
-```
+# 2. Build TypeScript packages
+npm run build
 
-Edit `.env` if you would like to provide default server API keys:
-```env
-PORT=3001
-CLIENT_URL=http://localhost:5173
-
-# Optional: Add your API keys here, or enter them in the UI Settings modal
-GEMINI_API_KEY=
-OPENAI_API_KEY=
-ANTHROPIC_API_KEY=
-```
-
-> 💡 **Tip**: You don't need any API keys to start! The built-in **Sentinel Mock Core** works immediately offline. When you want to use frontier models, simply open the **Settings (⚙️)** in the top bar and enter your key.
-
-### 4. Launch Development Servers
-Run both backend and frontend concurrently:
-```bash
+# 3. Launch both backend API and frontend
 npm run dev
 ```
 
-- **Frontend Application**: `http://localhost:5173`
+- **Chat Terminal**: `http://localhost:5173`
 - **Backend API**: `http://localhost:3001`
-- **Health Check**: `http://localhost:3001/api/health`
+- **Knowledge Status**: `http://localhost:3001/api/knowledge/status`
 
 ---
 
-## 🧪 Running Automated Tests
+## 🧪 Automated Testing
 
-Run the backend integration test suite to verify SSE streaming, model adapters, and storage:
 ```bash
 npm test
 ```
-
-To run a production build:
-```bash
-npm run build
-```
+Verifies knowledge indexing, hybrid RAG retrieval, grounded streaming, citation tags, and out-of-domain query guardrails.
 
 ---
 

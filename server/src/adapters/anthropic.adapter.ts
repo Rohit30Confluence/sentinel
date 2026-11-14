@@ -1,6 +1,7 @@
 import Anthropic from '@anthropic-ai/sdk';
 import { BaseModelAdapter, StreamCallbacks } from './base.adapter.js';
 import { ChatStreamRequest } from '../types/index.js';
+import { knowledgeRetriever } from '../rag/retriever.js';
 
 export class AnthropicAdapter extends BaseModelAdapter {
   providerName = 'anthropic';
@@ -13,24 +14,28 @@ export class AnthropicAdapter extends BaseModelAdapter {
     const apiKey = req.apiKeys?.anthropic || process.env.ANTHROPIC_API_KEY;
     if (!apiKey) {
       throw new Error(
-        'Anthropic API key is required. Please set ANTHROPIC_API_KEY in .env or provide it in the UI Settings.'
+        'Anthropic API key is required. Please set ANTHROPIC_API_KEY in .env.'
       );
     }
 
     const startTime = Date.now();
     const anthropic = new Anthropic({ apiKey });
-    const systemInstruction = this.assembleSystemInstruction(req);
+
+    const lastUserMsg = req.messages[req.messages.length - 1]?.content || '';
+    const chunks = await knowledgeRetriever.retrieve(lastUserMsg, 4);
+    const knowledgeContext = knowledgeRetriever.formatContext(chunks);
+    const citations = Array.from(new Set(chunks.map((c) => c.chunk.sourceFile)));
+
+    const systemInstruction = this.assembleSystemInstruction(req, knowledgeContext, citations);
 
     const formattedMessages: any[] = [];
 
     for (let i = 0; i < req.messages.length; i++) {
       const msg = req.messages[i];
       if (msg.role === 'system') continue;
-      const isLast = i === req.messages.length - 1;
-      const contentText = isLast ? this.formatUserMessageWithAttachments(msg) : msg.content;
       formattedMessages.push({
         role: msg.role === 'assistant' ? 'assistant' : 'user',
-        content: contentText
+        content: msg.content
       });
     }
 
@@ -42,7 +47,7 @@ export class AnthropicAdapter extends BaseModelAdapter {
         max_tokens: 4096,
         system: systemInstruction,
         messages: formattedMessages,
-        temperature: req.temperature ?? 0.7
+        temperature: req.temperature ?? 0.3
       });
 
       let fullGeneratedText = '';
@@ -71,7 +76,8 @@ export class AnthropicAdapter extends BaseModelAdapter {
             formattedMessages.reduce((acc, m) => acc + (m.content?.length || 0), 0) / 4
           ),
           completionTokens: Math.ceil(fullGeneratedText.length / 4),
-          durationMs: Date.now() - startTime
+          durationMs: Date.now() - startTime,
+          citations
         });
       }
     } catch (err: any) {

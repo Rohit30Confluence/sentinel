@@ -5,12 +5,12 @@
 @layer base {
   * {
     scrollbar-width: thin;
-    scrollbar-color: rgba(156, 163, 175, 0.4) transparent;
+    scrollbar-color: rgba(92, 90, 85, 0.3) transparent;
   }
   
   ::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
+    width: 5px;
+    height: 5px;
   }
   
   ::-webkit-scrollbar-track {
@@ -18,53 +18,144 @@
   }
   
   ::-webkit-scrollbar-thumb {
-    background: rgba(156, 163, 175, 0.35);
-    border-radius: 9999px;
+    background: rgba(92, 90, 85, 0.25);
+    border-radius: 2px;
   }
   
   .dark ::-webkit-scrollbar-thumb {
-    background: rgba(75, 85, 99, 0.45);
+    background: rgba(255, 255, 255, 0.2);
   }
   
   ::-webkit-scrollbar-thumb:hover {
-    background: rgba(107, 114, 128, 0.6);
+    background: rgba(164, 89, 255, 0.6);
   }
 }
 
-/* Custom markdown formatting */
-.prose-sentinel pre {
-  margin-top: 0.75rem;
-  margin-bottom: 0.75rem;
-  padding: 0;
-  background: transparent;
+/* ThatJoint editorial markdown styling */
+.prose-thatjoint h1,
+.prose-thatjoint h2,
+.prose-thatjoint h3 {
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  font-weight: 600;
+  color: #141413;
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
 }
 
-.prose-sentinel code:not(pre code) {
+.dark .prose-thatjoint h1,
+.dark .prose-thatjoint h2,
+.dark .prose-thatjoint h3 {
+  color: #F7F5F0;
+}
+
+.prose-thatjoint p {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  line-height: 1.65;
+}
+
+.prose-thatjoint ul,
+.prose-thatjoint ol {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  padding-left: 1.25rem;
+}
+
+.prose-thatjoint li {
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
+  line-height: 1.6;
+}
+
+.prose-thatjoint em {
+  font-family: 'Newsreader', Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+}
+
+.prose-thatjoint code:not(pre code) {
   padding: 0.15rem 0.35rem;
-  border-radius: 0.25rem;
-  font-size: 0.875em;
+  border-radius: 2px;
+  font-size: 0.825em;
   font-family: 'JetBrains Mono', monospace;
-  background-color: rgba(100, 116, 139, 0.15);
-  color: #0891b2;
+  background-color: rgba(92, 90, 85, 0.1);
+  color: #141413;
+  border: 1px solid rgba(92, 90, 85, 0.15);
 }
 
-.dark .prose-sentinel code:not(pre code) {
-  background-color: rgba(30, 41, 59, 0.8);
-  color: #38bdf8;
+.dark .prose-thatjoint code:not(pre code) {
+  background-color: rgba(255, 255, 255, 0.08);
+  color: #F7F5F0;
+  border-color: rgba(255, 255, 255, 0.12);
 }
 
-/* Pulse animation for streaming cursor */
-@keyframes blink {
+.prose-thatjoint table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  font-size: 0.85rem;
+}
+
+.prose-thatjoint th {
+  border-bottom: 2px solid #E4E0D8;
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+  font-family: 'Barlow Condensed', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.85rem;
+}
+
+.dark .prose-thatjoint th {
+  border-bottom-color: rgba(255, 255, 255, 0.15);
+}
+
+.prose-thatjoint td {
+  border-bottom: 1px solid #E4E0D8;
+  padding: 0.5rem 0.75rem;
+}
+
+.dark .prose-thatjoint td {
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+}
+
+/* Pulsing cursor for live streaming */
+@keyframes cursorBlink {
   0%, 100% { opacity: 1; }
   50% { opacity: 0; }
 }
 
 .cursor-blink {
   display: inline-block;
-  width: 7px;
-  height: 15px;
+  width: 6px;
+  height: 14px;
   margin-left: 3px;
   vertical-align: middle;
-  background-color: #06b6d4;
-  animation: blink 1s infinite;
+  background-color: #A459FF;
+  animation: cursorBlink 0.9s infinite;
+}
+
+/* Subtle architectural citation pill */
+.citation-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 2px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  background: rgba(164, 89, 255, 0.08);
+  color: #7a3ee6;
+  border: 1px solid rgba(164, 89, 255, 0.25);
+  margin-top: 0.5rem;
+  margin-right: 0.4rem;
+}
+
+.dark .citation-pill {
+  background: rgba(164, 89, 255, 0.15);
+  color: #c49aff;
+  border-color: rgba(164, 89, 255, 0.3);
 }

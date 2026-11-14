@@ -11,12 +11,12 @@ export const ThemeToggle: React.FC = () => {
       type="button"
       title={`Switch to ${theme === 'dark' ? 'Light' : 'Dark'} Mode`}
       aria-label="Toggle Theme"
-      className="p-2 rounded-lg text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white bg-gray-100 hover:bg-gray-200 dark:bg-dark-card dark:hover:bg-dark-hover transition-colors border border-gray-200 dark:border-dark-border"
+      className="p-2 rounded-sm text-[#5C5A55] hover:text-[#141413] dark:text-[#9E9B95] dark:hover:text-white bg-white hover:bg-black/5 dark:bg-[#1E1E1D] dark:hover:bg-white/5 transition-colors border border-[#E4E0D8] dark:border-white/10 shadow-sm"
     >
       {theme === 'dark' ? (
-        <Sun className="w-4 h-4 text-amber-400 transition-transform rotate-0 hover:rotate-45" />
+        <Sun className="w-3.5 h-3.5 text-amber-400" />
       ) : (
-        <Moon className="w-4 h-4 text-sentinel-600 transition-transform -rotate-12 hover:rotate-0" />
+        <Moon className="w-3.5 h-3.5 text-[#A459FF]" />
       )}
     </button>
   );

@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import { Shield, User, Copy, Check, Clock, AlertTriangle } from 'lucide-react';
+import { Copy, Check, Clock, BookOpen } from 'lucide-react';
 import { ChatMessage } from '../types/chat.js';
 import { CodeBlock } from './CodeBlock.js';
-import { FileBadge } from './FileBadge.js';
 
 interface MessageItemProps {
   message: ChatMessage;
@@ -32,64 +31,55 @@ export const MessageItem: React.FC<MessageItemProps> = ({ message, isStreaming =
 
   return (
     <div
-      className={`group w-full py-4 px-4 sm:px-6 transition-colors ${
+      className={`group w-full py-5 px-4 sm:px-6 transition-colors border-b border-[#E4E0D8]/60 dark:border-white/5 ${
         isUser
           ? 'bg-transparent'
-          : 'bg-gray-50/70 dark:bg-dark-surface/40 border-y border-gray-100 dark:border-dark-border/40'
+          : 'bg-white dark:bg-[#1E1E1D]'
       }`}
     >
-      <div className="max-w-3xl mx-auto flex items-start gap-3 sm:gap-4">
-        {/* Avatar */}
+      <div className="max-w-3xl mx-auto flex items-start gap-3.5 sm:gap-4">
+        {/* Avatar badge */}
         <div
-          className={`w-8 h-8 rounded-xl shrink-0 flex items-center justify-center text-xs font-semibold shadow-sm ${
+          className={`w-7 h-7 rounded-sm shrink-0 flex items-center justify-center text-[10px] font-mono font-bold border transition-colors ${
             isUser
-              ? 'bg-gray-200 dark:bg-dark-card text-gray-700 dark:text-gray-300'
-              : 'bg-gradient-to-tr from-sentinel-600 to-cyan-400 text-white shadow-sentinel-500/20'
+              ? 'bg-[#FAF9F6] dark:bg-[#141413] border-[#E4E0D8] dark:border-white/20 text-[#141413] dark:text-white'
+              : 'bg-[#141413] text-white border-[#141413] dark:bg-white dark:text-[#141413] dark:border-white shadow-sm'
           }`}
         >
-          {isUser ? <User className="w-4 h-4" /> : <Shield className="w-4 h-4" />}
+          {isUser ? '01' : 'TJ'}
         </div>
 
-        {/* Message Content Container */}
-        <div className="flex-1 min-w-0 space-y-1.5">
-          {/* Header metadata */}
-          <div className="flex items-center justify-between text-xs text-gray-400">
+        {/* Message body */}
+        <div className="flex-1 min-w-0 space-y-2">
+          {/* Metadata bar */}
+          <div className="flex items-center justify-between text-xs">
             <div className="flex items-center gap-2">
-              <span className="font-semibold text-gray-900 dark:text-gray-200">
-                {isUser ? 'You' : 'Sentinel AI'}
+              <span className="font-display font-semibold uppercase tracking-wider text-[#141413] dark:text-white text-sm">
+                {isUser ? 'OPERATOR' : 'THΛTJOINT / SENTINEL AI'}
               </span>
-              {message.modelUsed && !isUser && (
-                <span className="text-[10px] font-mono px-1.5 py-0.2 rounded bg-gray-200/60 dark:bg-dark-card text-gray-500 dark:text-gray-400">
-                  {message.modelUsed}
+              {!isUser && (
+                <span className="font-mono text-[10px] px-1.5 py-0.2 rounded-sm bg-black/5 dark:bg-white/10 text-[#7A7A7A] dark:text-[#9E9B95]">
+                  Verified RAG
                 </span>
               )}
             </div>
+
             <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-              <span className="flex items-center gap-1 text-[11px]">
-                <Clock className="w-3 h-3" />
+              <span className="font-mono text-[10px] text-[#7A7A7A]">
                 {formattedTime}
               </span>
               <button
                 onClick={handleCopyMessage}
-                title="Copy entire message"
-                className="p-1 rounded hover:bg-gray-200 dark:hover:bg-dark-card text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition-colors"
+                title="Copy entire response"
+                className="p-1 rounded-sm hover:bg-black/5 dark:hover:bg-white/10 text-[#7A7A7A] hover:text-[#141413] dark:hover:text-white transition-colors"
               >
-                {copied ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5" />}
+                {copied ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
               </button>
             </div>
           </div>
 
-          {/* Attached Files Badge Display */}
-          {message.attachments && message.attachments.length > 0 && (
-            <div className="flex flex-wrap gap-2 pt-1 pb-1">
-              {message.attachments.map((file, idx) => (
-                <FileBadge key={idx} file={file} readOnly />
-              ))}
-            </div>
-          )}
-
-          {/* Body Content */}
-          <div className="prose-sentinel text-sm text-gray-800 dark:text-gray-200 leading-relaxed break-words">
+          {/* Markdown Content */}
+          <div className="prose-thatjoint text-sm text-[#141413] dark:text-[#F7F5F0] leading-relaxed break-words font-sans">
             {isUser ? (
               <p className="whitespace-pre-wrap">{message.content}</p>
             ) : (
@@ -119,11 +109,18 @@ export const MessageItem: React.FC<MessageItemProps> = ({ message, isStreaming =
             {isStreaming && <span className="cursor-blink" />}
           </div>
 
-          {/* Error Banner */}
-          {message.error && (
-            <div className="flex items-center gap-2 p-2 mt-2 rounded-lg bg-red-500/10 border border-red-500/20 text-red-600 dark:text-red-400 text-xs">
-              <AlertTriangle className="w-4 h-4 shrink-0" />
-              <span>Generation was interrupted or encountered an upstream issue.</span>
+          {/* Citations Pill Bar */}
+          {message.citations && message.citations.length > 0 && (
+            <div className="pt-2 border-t border-[#E4E0D8]/40 dark:border-white/5 flex flex-wrap items-center gap-1.5">
+              <span className="font-mono text-[10px] uppercase text-[#7A7A7A] tracking-wider mr-1 flex items-center gap-1">
+                <BookOpen className="w-3 h-3 text-[#A459FF]" />
+                Sources:
+              </span>
+              {message.citations.map((cite, i) => (
+                <span key={i} className="citation-pill">
+                  {cite}
+                </span>
+              ))}
             </div>
           )}
         </div>

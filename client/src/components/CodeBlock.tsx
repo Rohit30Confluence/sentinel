@@ -22,37 +22,37 @@ export const CodeBlock: React.FC<CodeBlockProps> = ({ language, value }) => {
   const cleanLang = (language || 'text').replace('language-', '').toLowerCase();
 
   return (
-    <div className="relative my-3 rounded-lg overflow-hidden border border-gray-300 dark:border-dark-border bg-gray-900 shadow-sm text-gray-100">
+    <div className="relative my-3 rounded-sm overflow-hidden border border-[#E4E0D8] dark:border-white/10 bg-[#141413] shadow-sm text-gray-100 font-mono">
       {/* Code Header Bar */}
-      <div className="flex items-center justify-between px-3.5 py-1.5 bg-gray-800/90 border-b border-gray-700/60 text-xs font-mono">
+      <div className="flex items-center justify-between px-3.5 py-1.5 bg-[#1E1E1D] border-b border-white/10 text-xs">
         <div className="flex items-center gap-1.5 text-gray-300">
-          <Terminal className="w-3.5 h-3.5 text-sentinel-400" />
-          <span className="uppercase font-semibold tracking-wider text-[11px] text-gray-300">
+          <Terminal className="w-3 h-3 text-[#A459FF]" />
+          <span className="uppercase font-semibold tracking-wider text-[10px] text-gray-300">
             {cleanLang}
           </span>
         </div>
         <button
           onClick={handleCopy}
           type="button"
-          className="flex items-center gap-1 px-2 py-0.5 rounded text-gray-300 hover:text-white bg-gray-700/60 hover:bg-gray-700 transition-colors"
+          className="flex items-center gap-1 px-2 py-0.5 rounded-sm text-gray-300 hover:text-white bg-white/5 hover:bg-white/10 transition-colors"
           title="Copy code to clipboard"
         >
           {copied ? (
             <>
               <Check className="w-3 h-3 text-emerald-400" />
-              <span className="text-[11px] text-emerald-400 font-sans">Copied!</span>
+              <span className="text-[10px] text-emerald-400 font-sans">Copied!</span>
             </>
           ) : (
             <>
               <Copy className="w-3 h-3" />
-              <span className="text-[11px] font-sans">Copy</span>
+              <span className="text-[10px] font-sans">Copy</span>
             </>
           )}
         </button>
       </div>
 
       {/* Code Content */}
-      <div className="p-4 overflow-x-auto text-[13px] font-mono leading-relaxed bg-[#0d1117]">
+      <div className="p-3.5 overflow-x-auto text-xs leading-relaxed bg-[#141413]">
         <code>{value}</code>
       </div>
     </div>

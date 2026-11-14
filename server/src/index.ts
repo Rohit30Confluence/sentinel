@@ -3,6 +3,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import path from 'path';
 import { apiRouter } from './routes/api.routes.js';
+import { knowledgeIndexer } from './rag/indexer.js';
 
 dotenv.config();
 
@@ -14,7 +15,7 @@ app.use(
   cors({
     origin: '*',
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'x-admin-secret']
   })
 );
 app.use(express.json({ limit: '15mb' }));
@@ -41,10 +42,21 @@ app.use((err: any, req: express.Request, res: express.Response, next: express.Ne
   });
 });
 
+// Ensure initial knowledge indexing on startup
+if (process.env.NODE_ENV !== 'test') {
+  if (!knowledgeIndexer.indexExists()) {
+    console.log('[Sentinel] Building initial knowledge index...');
+    knowledgeIndexer
+      .buildIndex()
+      .then((m) => console.log(`[Sentinel] Knowledge ready with ${m.totalChunks} chunks`))
+      .catch((err) => console.error('[Sentinel] Index error:', err));
+  }
+}
+
 // Start listening if run directly
 if (process.env.NODE_ENV !== 'test') {
   app.listen(PORT, () => {
-    console.log(`🛡️ Sentinel AI Backend running on http://localhost:${PORT}`);
+    console.log(`🛡️ THΛTJOINT / Sentinel AI Backend running on http://localhost:${PORT}`);
     console.log(`📡 Ready for SSE Chat Streaming and Multi-Provider Requests`);
   });
 }

@@ -1,17 +1,15 @@
 import { useState, useRef, useCallback } from 'react';
-import { ChatMessage, FileAttachment, UserSettings, Conversation } from '../types/chat.js';
+import { ChatMessage, Conversation } from '../types/chat.js';
 import { generateId } from '../utils/storage.js';
 
 interface UseChatStreamProps {
   currentConversation: Conversation | null;
   onUpdateConversation: (conv: Conversation) => void;
-  settings: UserSettings;
 }
 
 export function useChatStream({
   currentConversation,
-  onUpdateConversation,
-  settings
+  onUpdateConversation
 }: UseChatStreamProps) {
   const [isStreaming, setIsStreaming] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -29,8 +27,8 @@ export function useChatStream({
   }, []);
 
   const sendMessage = useCallback(
-    async (content: string, attachments: FileAttachment[] = []) => {
-      if ((!content.trim() && attachments.length === 0) || !currentConversation || isStreaming) {
+    async (content: string) => {
+      if (!content.trim() || !currentConversation || isStreaming) {
         return;
       }
 
@@ -41,8 +39,7 @@ export function useChatStream({
       const userMessage: ChatMessage = {
         id: userMessageId,
         role: 'user',
-        content,
-        attachments,
+        content: content.trim(),
         createdAt: Date.now()
       };
 
@@ -51,16 +48,16 @@ export function useChatStream({
         role: 'assistant',
         content: '',
         createdAt: Date.now(),
-        modelUsed: settings.selectedModel
+        modelUsed: 'Sentinel Knowledge Core'
       };
 
       const updatedMessages = [...currentConversation.messages, userMessage, assistantMessage];
       const newTitle =
         currentConversation.messages.length === 0
-          ? content.slice(0, 36) || 'New Conversation'
+          ? content.trim().slice(0, 36)
           : currentConversation.title;
 
-      const activeConv: Conversation = {
+      let activeConv: Conversation = {
         ...currentConversation,
         title: newTitle,
         updatedAt: Date.now(),
@@ -76,15 +73,7 @@ export function useChatStream({
       try {
         const payload = {
           messages: updatedMessages.slice(0, -1), // send up to user message
-          model: settings.selectedModel,
-          personaId: settings.selectedPersona,
-          customSystemPrompt: settings.customSystemPrompt,
-          temperature: settings.temperature,
-          apiKeys: {
-            gemini: settings.geminiKey,
-            openai: settings.openaiKey,
-            anthropic: settings.anthropicKey
-          }
+          model: 'mock-sentinel'
         };
 
         const response = await fetch('/api/chat/stream', {
@@ -108,6 +97,7 @@ export function useChatStream({
         const reader = response.body.getReader();
         const decoder = new TextDecoder('utf-8');
         let accumulatedAssistantText = '';
+        let citations: string[] = [];
         let buffer = '';
 
         while (true) {
@@ -136,17 +126,19 @@ export function useChatStream({
                   setTokensProcessed((prev) => prev + 1);
 
                   // Update assistant message live in conversation
-                  onUpdateConversation({
+                  activeConv = {
                     ...activeConv,
                     messages: updatedMessages.map((m) =>
                       m.id === assistantMessageId
-                        ? { ...m, content: accumulatedAssistantText }
+                        ? { ...m, content: accumulatedAssistantText, citations }
                         : m
                     )
-                  });
+                  };
+                  onUpdateConversation(activeConv);
                 } else if (currentEvent === 'metadata') {
                   if (parsed.durationMs) setLastDurationMs(parsed.durationMs);
                   if (parsed.totalTokens) setTokensProcessed(parsed.totalTokens);
+                  if (parsed.citations) citations = parsed.citations;
                 } else if (currentEvent === 'error') {
                   setError(parsed.message || 'Stream error occurred.');
                 }
@@ -166,14 +158,15 @@ export function useChatStream({
                   ...m,
                   content: accumulatedAssistantText || '*(No response received)*',
                   durationMs: lastDurationMs,
-                  tokens: tokensProcessed
+                  tokens: tokensProcessed,
+                  citations
                 }
               : m
           )
         };
         onUpdateConversation(finalizedConv);
 
-        // Optionally persist to server /api/history
+        // Sync to server history in background
         fetch('/api/history', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -184,9 +177,8 @@ export function useChatStream({
           console.log('Stream aborted by user');
         } else {
           console.error('Chat error:', err);
-          setError(err.message || 'Failed to communicate with Sentinel AI server.');
+          setError(err.message || 'Failed to communicate with THΛTJOINT intelligence server.');
 
-          // Update message with error badge
           onUpdateConversation({
             ...activeConv,
             messages: updatedMessages.map((m) =>
@@ -195,7 +187,7 @@ export function useChatStream({
                     ...m,
                     content: m.content
                       ? m.content + '\n\n*(Stream interrupted)*'
-                      : '⚠️ **Error**: ' + (err.message || 'Failed to complete response.'),
+                      : '⚠️ **Operational Notice**: ' + (err.message || 'Could not complete query.'),
                     error: true
                   }
                 : m
@@ -207,7 +199,7 @@ export function useChatStream({
         abortControllerRef.current = null;
       }
     },
-    [currentConversation, isStreaming, onUpdateConversation, settings, lastDurationMs, tokensProcessed]
+    [currentConversation, isStreaming, onUpdateConversation, lastDurationMs, tokensProcessed]
   );
 
   return {

@@ -2,45 +2,34 @@ import React, { useState, useEffect } from 'react';
 import { Header } from './components/Header.js';
 import { Sidebar } from './components/Sidebar.js';
 import { ChatArea } from './components/ChatArea.js';
-import { SettingsModal } from './components/SettingsModal.js';
+import { KnowledgeModal } from './components/KnowledgeModal.js';
 import { useChatStream } from './hooks/useChatStream.js';
+import { Conversation, KnowledgeStatus } from './types/chat.js';
 import {
-  Conversation,
-  UserSettings,
-  Persona,
-  ModelOption
-} from './types/chat.js';
-import {
-  loadStoredSettings,
-  saveStoredSettings,
   loadStoredConversations,
   saveStoredConversations,
   generateId
 } from './utils/storage.js';
 
 export const App: React.FC = () => {
-  const [settings, setSettings] = useState<UserSettings>(loadStoredSettings);
   const [conversations, setConversations] = useState<Conversation[]>(loadStoredConversations);
   const [activeId, setActiveId] = useState<string | null>(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [settingsOpen, setSettingsOpen] = useState(false);
+  const [knowledgeOpen, setKnowledgeOpen] = useState(false);
+  const [knowledgeStatus, setKnowledgeStatus] = useState<KnowledgeStatus | null>(null);
 
-  const [personas, setPersonas] = useState<Persona[]>([]);
-  const [models, setModels] = useState<ModelOption[]>([]);
+  // Fetch knowledge base status & server history on mount
+  const fetchKnowledgeStatus = () => {
+    fetch('/api/knowledge/status')
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => setKnowledgeStatus(data))
+      .catch((err) => console.warn('Could not fetch knowledge status:', err));
+  };
 
-  // Fetch models & personas from backend
   useEffect(() => {
-    fetch('/api/models')
-      .then((res) => (res.ok ? res.json() : []))
-      .then((data) => setModels(data))
-      .catch((err) => console.warn('Could not fetch models:', err));
+    fetchKnowledgeStatus();
 
-    fetch('/api/personas')
-      .then((res) => (res.ok ? res.json() : []))
-      .then((data) => setPersonas(data))
-      .catch((err) => console.warn('Could not fetch personas:', err));
-
-    // Also fetch initial history from server if local is empty
+    // Fetch initial history if local is empty
     fetch('/api/history')
       .then((res) => (res.ok ? res.json() : []))
       .then((serverConvs: Conversation[]) => {
@@ -53,19 +42,12 @@ export const App: React.FC = () => {
       .catch((err) => console.warn('Could not sync history:', err));
   }, []);
 
-  // Sync settings updates to localStorage
-  const handleSaveSettings = (newSettings: UserSettings) => {
-    setSettings(newSettings);
-    saveStoredSettings(newSettings);
-  };
-
-  // Sync conversations updates to localStorage
   const updateConversationsList = (newList: Conversation[]) => {
     setConversations(newList);
     saveStoredConversations(newList);
   };
 
-  // Ensure there is always an active conversation
+  // Ensure active conversation exists
   useEffect(() => {
     if (!activeId) {
       if (conversations.length > 0) {
@@ -93,9 +75,9 @@ export const App: React.FC = () => {
   const createNewChat = () => {
     const newConv: Conversation = {
       id: generateId(),
-      title: 'New Conversation',
-      personaId: settings.selectedPersona,
-      model: settings.selectedModel,
+      title: 'New Terminal Chat',
+      personaId: 'sentinel-prime',
+      model: 'mock-sentinel',
       createdAt: Date.now(),
       updatedAt: Date.now(),
       messages: []
@@ -109,7 +91,6 @@ export const App: React.FC = () => {
     const nextList = conversations.filter((c) => c.id !== id);
     updateConversationsList(nextList);
 
-    // Call server to delete
     fetch(`/api/history/${id}`, { method: 'DELETE' }).catch((e) =>
       console.warn('Failed deleting history on server:', e)
     );
@@ -134,7 +115,7 @@ export const App: React.FC = () => {
     createNewChat();
   };
 
-  // Streaming Hook
+  // Chat Streaming Hook
   const {
     sendMessage,
     stopGenerating,
@@ -143,16 +124,11 @@ export const App: React.FC = () => {
     lastDurationMs
   } = useChatStream({
     currentConversation: activeConversation,
-    onUpdateConversation: handleUpdateActiveConversation,
-    settings
+    onUpdateConversation: handleUpdateActiveConversation
   });
 
-  const selectedPersonaObj = personas.find(
-    (p) => p.id === settings.selectedPersona
-  );
-
   return (
-    <div className="flex h-screen w-screen overflow-hidden bg-gray-50 dark:bg-dark-base">
+    <div className="flex h-screen w-screen overflow-hidden bg-[#F7F5F0] dark:bg-[#141413]">
       {/* Sidebar */}
       <Sidebar
         isOpen={sidebarOpen}
@@ -164,18 +140,16 @@ export const App: React.FC = () => {
         onDeleteConversation={handleDeleteConversation}
         onRenameConversation={handleRenameConversation}
         onClearAll={handleClearAll}
+        onOpenKnowledge={() => setKnowledgeOpen(true)}
+        knowledgeStatus={knowledgeStatus}
       />
 
-      {/* Main Area */}
+      {/* Main Terminal Chat Area */}
       <div className="flex-1 flex flex-col h-full overflow-hidden">
         <Header
           onToggleSidebar={() => setSidebarOpen(!sidebarOpen)}
-          onOpenSettings={() => setSettingsOpen(true)}
-          personas={personas}
-          selectedPersona={settings.selectedPersona}
-          onSelectPersona={(id) => handleSaveSettings({ ...settings, selectedPersona: id })}
-          selectedModel={settings.selectedModel}
-          models={models}
+          onOpenKnowledge={() => setKnowledgeOpen(true)}
+          knowledgeStatus={knowledgeStatus}
           tokensProcessed={tokensProcessed}
           lastDurationMs={lastDurationMs}
           isStreaming={isStreaming}
@@ -186,19 +160,19 @@ export const App: React.FC = () => {
           isStreaming={isStreaming}
           onSendMessage={sendMessage}
           onStopGenerating={stopGenerating}
-          selectedPersonaName={selectedPersonaObj?.name || 'Sentinel Prime'}
+          onOpenKnowledge={() => setKnowledgeOpen(true)}
         />
       </div>
 
-      {/* Settings Modal */}
-      <SettingsModal
-        isOpen={settingsOpen}
-        onClose={() => setSettingsOpen(false)}
-        settings={settings}
-        onSave={handleSaveSettings}
-        models={models}
+      {/* Active Knowledge Inspector Modal */}
+      <KnowledgeModal
+        isOpen={knowledgeOpen}
+        onClose={() => setKnowledgeOpen(false)}
+        knowledgeStatus={knowledgeStatus}
+        onRefresh={fetchKnowledgeStatus}
       />
     </div>
   );
 };
+
 export default App;

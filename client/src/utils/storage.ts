@@ -1,38 +1,6 @@
-import { UserSettings, Conversation } from '../types/chat.js';
+import { Conversation } from '../types/chat.js';
 
-const SETTINGS_KEY = 'sentinel_settings_v1';
-const CONVERSATIONS_KEY = 'sentinel_conversations_v1';
-
-export const DEFAULT_SETTINGS: UserSettings = {
-  geminiKey: '',
-  openaiKey: '',
-  anthropicKey: '',
-  selectedModel: 'mock-sentinel',
-  selectedPersona: 'sentinel-prime',
-  customSystemPrompt: '',
-  temperature: 0.7,
-  streamTokens: true,
-  autoSaveHistory: true
-};
-
-export function loadStoredSettings(): UserSettings {
-  try {
-    const raw = localStorage.getItem(SETTINGS_KEY);
-    if (!raw) return DEFAULT_SETTINGS;
-    return { ...DEFAULT_SETTINGS, ...JSON.parse(raw) };
-  } catch (e) {
-    console.error('Failed to parse settings from storage:', e);
-    return DEFAULT_SETTINGS;
-  }
-}
-
-export function saveStoredSettings(settings: UserSettings): void {
-  try {
-    localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings));
-  } catch (e) {
-    console.error('Failed to save settings:', e);
-  }
-}
+const CONVERSATIONS_KEY = 'thatjoint_sentinel_conversations_v2';
 
 export function loadStoredConversations(): Conversation[] {
   try {
