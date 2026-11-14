@@ -57,7 +57,7 @@ npm run build
 npm run dev
 ```
 
-- **Chat Terminal**: `http://localhost:5173`
+- **Chat Terminal**: `http://localhost:5174` (or `http://localhost:5173`)
 - **Backend API**: `http://localhost:3001`
 - **Knowledge Status**: `http://localhost:3001/api/knowledge/status`
 
